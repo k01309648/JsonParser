@@ -1,0 +1,80 @@
+@prefix states: <http://www.example.org/statesOf#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+
+states:belongsTo a sh:PropertyShape ;
+				 sh:path states:belongsTo ;
+				 sh:targetObjectsOf states:belongsTo ;
+.
+
+states:icao24 a sh:PropertyShape ;
+			  sh:path states:icao24 ;
+			  sh:targetObjectsOf states:icao24 ;
+			  sh:datatype xsd:string ;
+			  sh:minLength 6 ;
+			  sh:maxLength 6 ;
+			  #sh:minCount 1 ;
+.
+states:timePos a sh:PropertyShape ;
+			   sh:path states:timePos ;
+			   sh:targetObjectsOf states:timePos ;
+			   sh:datatype xsd:string;
+			   sh:pattern "\\d{10}$";
+			   sh:minInclusive 0 ;
+			   #sh:minCount 1 ;
+.
+states:lastContact a sh:PropertyShape ;
+				   sh:path states:lastContact ;
+				   sh:targetObjectsOf states:lastContact ;
+				   sh:datatype xsd:string;
+				   sh:pattern "\\d{10}$";
+				   sh:minInclusive 0 ;
+				   #sh:minCount 1 ;
+.
+states:longitude a sh:PropertyShape ;
+				 sh:path states:longitude ;
+				 sh:targetObjectsOf states:longitude ;
+				 sh:datatype xsd:string;
+				 sh:minInclusive 0 ;
+				 #sh:minCount 1 ;
+.
+states:latitude a sh:PropertyShape ;
+				sh:path states:latitude ;
+				sh:targetObjectsOf states:latitude ;
+				sh:datatype xsd:string;
+				sh:minInclusive 0 ;
+				#sh:minCount 1 ;
+.
+states:baroAltitude a sh:PropertyShape ;
+					sh:path states:baroAltitude ;
+					sh:targetObjectsOf states:baroAltitude ;
+					sh:datatype xsd:string;
+					#sh:minCount 1 ;
+.
+states:velocity a sh:PropertyShape ;
+				sh:path states:velocity ;
+				sh:targetObjectsOf states:velocity ;
+				sh:datatype xsd:string;
+				#sh:minCount 1 ;
+.
+states:trueTrack a sh:PropertyShape ;
+				 sh:path states:trueTrack ;
+				 sh:targetObjectsOf states:trueTrack ;
+				 sh:datatype xsd:string;
+				 #sh:minCount 1 ;
+.
+states:verticalRate a sh:PropertyShape ;
+					sh:path states:verticalRate ;
+					sh:targetObjectsOf states:verticalRate ;
+					sh:datatype xsd:string;
+					#sh:minCount 1 ;
+.
+states:geoAltitude a sh:PropertyShape ;
+				   sh:path states:geoAltitude ;
+				   sh:targetObjectsOf states:geoAltitude ;
+				   sh:datatype xsd:string;
+				   #sh:minCount 1 ;
+.

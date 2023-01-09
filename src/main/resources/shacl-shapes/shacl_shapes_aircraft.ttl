@@ -1,0 +1,173 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix aircraft: <http://www.example.org/aircraft#> .
+@prefix aircraftType: <http://www.example/aircraft/type#> .
+@prefix manufacturer: <http://www.example/aircraft/manufacturer#> .
+@prefix operator: <http://www.example/aircraft/operator#> .
+
+#aircraft:hasIcao a sh:PropertyShape ;
+#                 sh:targetObjectsOf aircraft: ;
+#                 sh:minCount 1 ;
+#.
+
+aircraft:hasRegistration a sh:PropertyShape ;
+                         sh:path aircraft:hasRegistration ;
+                         sh:targetObjectsOf aircraft:hasRegistration ;
+                         sh:datatype xsd:string ;
+                         #sh:minCount 1 ;
+.
+
+aircraft:hasModel a sh:PropertyShape ;
+                  sh:path aircraft:hasModel ;
+                  sh:targetObjectsOf aircraft:hasModel ;
+                  sh:datatype xsd:string ;
+                  #sh:minCount 1;
+.
+
+aircraft:hasSerialNo a sh:PropertyShape ;
+                     sh:path aircraft:hasSerialNo ;
+                     sh:targetObjectsOf aircraft:hasSerialNo ;
+                     sh:datatype xsd:string ;
+.
+
+aircraft:hasLineNumber a sh:PropertyShape ;
+                       sh:path aircraft:hasLineNumber ;
+                       sh:targetObjectsOf aircraft:hasLineNumber ;
+                       sh:datatype xsd:string ;
+.
+
+aircraft:hasOwner a sh:PropertyShape ;
+                  sh:path aircraft:hasOwner ;
+                  sh:targetObjectsOf aircraft:hasOwner ;
+                  sh:datatype xsd:string ;
+.
+
+aircraft:hasTestReg a sh:PropertyShape ;
+                    sh:path aircraft:hasTestReg ;
+                    sh:targetObjectsOf aircraft:hasTestReg ;
+                    sh:datatype xsd:string ;
+.
+
+aircraft:isRegistered a sh:PropertyShape ;
+                      sh:path aircraft:isRegistered ;
+                      sh:targetObjectsOf aircraft:isRegistered ;
+                      sh:datatype xsd:string ;
+.
+
+aircraft:isRegUntil a sh:PropertyShape ;
+                    sh:path aircraft:isRegUntil ;
+                    sh:targetObjectsOf aircraft:isRegUntil ;
+                    sh:datatype xsd:string ;
+.
+
+aircraft:wasBuilt a sh:PropertyShape ;
+                  sh:path aircraft:wasBuilt ;
+                  sh:targetObjectsOf aircraft:wasBuilt ;
+                  sh:datatype xsd:string ;
+.
+
+aircraft:hasFirstFlightDate a sh:PropertyShape ;
+                            sh:path aircraft:hasFirstFlightDate ;
+                            sh:targetObjectsOf aircraft:hasFirstFlightDate ;
+                            sh:datatype xsd:string ;
+.
+
+aircraft:hasEngines a sh:PropertyShape ;
+                    sh:path aircraft:hasEngines ;
+                    sh:targetObjectsOf aircraft:hasEngines ;
+                    sh:datatype xsd:string ;
+.
+
+aircraft:hasCategoryDescription a sh:PropertyShape ;
+                                sh:path aircraft:hasCategoryDescription ;
+                                sh:targetObjectsOf aircraft:hasCategoryDescription ;
+                                sh:datatype xsd:string ;
+.
+
+#AIRCRAFT Operator ---------------------------------------------------------------------------
+aircraft:hasOperator a sh:NodeShape ;
+                     sh:targetObjectsOf aircraft:hasOperator ;
+                     #sh:node operator:hasCallSign ;
+                     #sh:node operator:hasIata ;
+                     #sh:node operator:hasIcao ;
+                     #sh:node operator:hasName ;
+.
+
+operator:hasCallSign a sh:PropertyShape ;
+                     sh:path operator:hasCallSign ;
+                     sh:targetSubjectsOf aircraft:hasOperator ;
+                     sh:targetObjectsOf operator:hasCallSign ;
+                     #sh:datatype xsd:string;
+.
+operator:hasIata a sh:PropertyShape ;
+                 sh:path operator:hasIata ;
+                 sh:targetSubjectsOf aircraft:hasOperator ;
+                 sh:targetObjectsOf operator:hasIata ;
+                 #sh:datatype xsd:string;
+.
+operator:hasIcao a sh:PropertyShape ;
+                 sh:path operator:hasIcao ;
+                 sh:targetSubjectsOf aircraft:hasOperator ;
+                 sh:targetObjectsOf operator:hasIcao ;
+                 #sh:datatype xsd:string;
+.
+operator:hasName a sh:PropertyShape ;
+                 sh:path operator:hasName ;
+                 sh:targetSubjectsOf aircraft:hasOperator ;
+                 sh:targetObjectsOf operator:hasName ;
+                 #sh:datatype xsd:string;
+.
+
+
+
+#AIRCRAFT MANUFACTURER ---------------------------------------------------------------------------
+aircraft:hasManufacturer a sh:NodeShape ;
+                         sh:targetObjectsOf aircraft:hasManufacturer ;
+#                         sh:node [
+#                                         a manufacturer:hasName ;
+#                                         sh:targetObjectsOf manufacturer:hasName ;
+#                                         sh:datatype xsd:integer ;
+#                                         sh:node manufacturer:hasName ;
+#                                     ] ;
+#                         sh:property [
+#                                         sh:path manufacturer:hasIcao ;
+#                                         sh:targetObjectsOf manufacturer:hasIcao ;
+#                                         sh:datatype xsd:integer ;
+#                                     ] ;
+.
+
+manufacturer:hasIcao a sh:PropertyShape ;
+                     sh:path manufacturer:hasIcao ;
+                     sh:targetSubjectsOf aircraft:hasManufacturer ;
+                     sh:targetObjectsOf manufacturer:hasIcao ;
+                     #sh:datatype xsd:integer;
+.
+manufacturer:hasName a sh:PropertyShape ;
+                     sh:path manufacturer:hasName ;
+                     sh:targetSubjectsOf aircraft:hasManufacturer ;
+                     sh:targetObjectsOf manufacturer:hasName ;
+                     #sh:datatype xsd:integer;
+.
+
+
+#AIRCRAFT TYPE ---------------------------------------------------------------------------
+aircraft:hasAircraftType a sh:NodeShape ;
+                         sh:targetObjectsOf aircraft:hasAircraftType ;
+                         #sh:node aircraftType:hasTypeCode ;
+                         #sh:node aircraftType:hasIcaoType ;
+.
+
+aircraftType:hasIcaoType a sh:PropertyShape ;
+                         sh:path aircraftType:hasIcaoType ;
+                         sh:targetSubjectsOf aircraft:hasAircraftType ;
+                         sh:targetObjectsOf aircraftType:hasIcaoType ;
+                         #sh:datatype xsd:string;
+.
+aircraftType:hasTypeCode a sh:PropertyShape ;
+                         sh:path aircraftType:hasTypeCode ;
+                         sh:targetSubjectsOf aircraft:hasAircraftType ;
+                         sh:targetObjectsOf aircraftType:hasTypeCode ;
+                         #sh:datatype xsd:string;
+.
