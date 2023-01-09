@@ -9,11 +9,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-import org.apache.jena.riot.RDFWriter;
-import org.apache.jena.riot.RIOT;
 import org.json.JSONObject;
 
-import airplane.ACDataBaseLine;
 import airplaneStates.FlightDetails;
 import airplaneStates.Pair;
 import airplaneStates.States;

@@ -1,58 +1,34 @@
 package airplane;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Resource;
-
-import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Aircraft {
     String icao24;
     String registration;
+    String manufacturerIcao;
+    String manufacturerName;
     String model;
+    String typeCode;
     String serialNumber;
     String lineNumber;
+    String icaoAircraftType;
+    String operator;
+    String operatorCallSign;
+    String operatorIcao;
+    String operatorIata;
     String owner;
     String testReg;
     String registered;
-    String reguntil;
+    String regUntil;
+    String status;
     String built;
     String firstFlightDate;
+    String seatConfiguration;
     String engines;
+    String modes;
+    String adsb;
+    String acars;
+    String notes;
     String categoryDescription;
 
     public Aircraft() {
-    }
-
-    public Aircraft(String icao24, String registration, String model, String serialNumber, String lineNumber, String owner, String testReg, String registered, String reguntil, String built, String firstFlightDate, String engines, String categoryDescription) {
-        this.icao24 = icao24;
-        this.registration = registration;
-        this.model = model;
-        this.serialNumber = serialNumber;
-        this.lineNumber = lineNumber;
-        this.owner = owner;
-        this.testReg = testReg;
-        this.registered = registered;
-        this.reguntil = reguntil;
-        this.built = built;
-        this.firstFlightDate = firstFlightDate;
-        this.engines = engines;
-        this.categoryDescription = categoryDescription;
-    }
-
-    String getIRI(){
-        return "http://example.com/"+icao24;
-    }
-    String serialize(String syntax){
-        Model model = ModelFactory.createDefaultModel();
-        Resource resource = model.createResource(getIRI());
-        // add the property
-        // resource.addProperty(, this.owner);
-        StringWriter out = new StringWriter();
-        model.write(out, syntax);
-        return out.toString();
     }
 
 
@@ -64,20 +40,28 @@ public class Aircraft {
         this.icao24 = icao24;
     }
 
-    public String getCategoryDescription() {
-        return categoryDescription;
-    }
-
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
-
     public String getRegistration() {
         return registration;
     }
 
     public void setRegistration(String registration) {
         this.registration = registration;
+    }
+
+    public String getManufacturerIcao() {
+        return manufacturerIcao;
+    }
+
+    public void setManufacturerIcao(String manufacturerIcao) {
+        this.manufacturerIcao = manufacturerIcao;
+    }
+
+    public String getManufacturerName() {
+        return manufacturerName;
+    }
+
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
     }
 
     public String getModel() {
@@ -88,6 +72,14 @@ public class Aircraft {
         this.model = model;
     }
 
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
+
     public String getSerialNumber() {
         return serialNumber;
     }
@@ -96,13 +88,57 @@ public class Aircraft {
         this.serialNumber = serialNumber;
     }
 
-    public String getTestReg() {
-        return testReg;
+    public String getLineNumber() {
+        return lineNumber;
     }
 
-    public void setTestReg(String testReg) {
-        this.testReg = testReg;
+    public void setLineNumber(String lineNumber) {
+        this.lineNumber = lineNumber;
     }
+
+    public String getIcaoAircraftType() {
+        return icaoAircraftType;
+    }
+
+    public void setIcaoAircraftType(String icaoAircraftType) {
+        this.icaoAircraftType = icaoAircraftType;
+    }
+
+    public String getOperatorCallSign() {
+        return operatorCallSign;
+    }
+
+    public void setOperatorCallSign(String operatorCallSign) {
+        this.operatorCallSign = operatorCallSign;
+    }
+
+    public String getOperatorIcao() {
+        return operatorIcao;
+    }
+
+    public void setOperatorIcao(String operatorIcao) {
+        this.operatorIcao = operatorIcao;
+    }
+
+    public String getOperatorIata() {
+        return operatorIata;
+    }
+
+    public void setOperatorIata(String operatorIata) {
+        this.operatorIata = operatorIata;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getTestReg() { return testReg; }
+
+    public void setTestReg(String testReg) { this.testReg = testReg;}
 
     public String getRegistered() {
         return registered;
@@ -112,16 +148,32 @@ public class Aircraft {
         this.registered = registered;
     }
 
-    public String getReguntil() {
-        return reguntil;
+    public String getRegUntil() {
+        return regUntil;
     }
 
-    public void setReguntil(String reguntil) {
-        this.reguntil = reguntil;
+    public void setRegUntil(String regUntil) {
+        this.regUntil = regUntil;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getBuilt() {
         return built;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getOperator() {
+        return operator;
     }
 
     public void setBuilt(String built) {
@@ -136,6 +188,14 @@ public class Aircraft {
         this.firstFlightDate = firstFlightDate;
     }
 
+    public String getSeatConfiguration() {
+        return seatConfiguration;
+    }
+
+    public void setSeatConfiguration(String seatConfiguration) {
+        this.seatConfiguration = seatConfiguration;
+    }
+
     public String getEngines() {
         return engines;
     }
@@ -144,37 +204,75 @@ public class Aircraft {
         this.engines = engines;
     }
 
-    public String getLineNumber() {
-        return lineNumber;
+    public String getModes() {
+        return modes;
     }
 
-    public void setLineNumber(String lineNumber) {
-        this.lineNumber = lineNumber;
+    public void setModes(String modes) {
+        this.modes = modes;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getAdsb() {
+        return adsb;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setAdsb(String adsb) {
+        this.adsb = adsb;
+    }
+
+    public String getAcars() {
+        return acars;
+    }
+
+    public void setAcars(String acars) {
+        this.acars = acars;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     @Override
     public String toString() {
-        return "Aircraft{" +
+        return "ACDataBaseLine{" +
                 "icao24='" + icao24 + '\'' +
-                ", registration='" + registration + '\'' +
-                ", model='" + model + '\'' +
+                ", registrationIRI='" + registration + '\'' +
+                ", icao='" + manufacturerIcao + '\'' +
+                ", name='" + manufacturerName + '\'' +
+                ", modelIRI='" + model + '\'' +
+                ", typeCode='" + typeCode + '\'' +
                 ", serialNumber='" + serialNumber + '\'' +
                 ", lineNumber='" + lineNumber + '\'' +
+                ", icaoAircraftType='" + icaoAircraftType + '\'' +
+                ", name='" + operator + '\'' +
+                ", operatorCallSign='" + operatorCallSign + '\'' +
+                ", operatorIcao='" + operatorIcao + '\'' +
+                ", operatorIata='" + operatorIata + '\'' +
                 ", owner='" + owner + '\'' +
                 ", testReg='" + testReg + '\'' +
                 ", registered='" + registered + '\'' +
-                ", reguntil='" + reguntil + '\'' +
+                ", regUntil='" + regUntil + '\'' +
+                ", status='" + status + '\'' +
                 ", built='" + built + '\'' +
                 ", firstFlightDate='" + firstFlightDate + '\'' +
+                ", seatConfiguration='" + seatConfiguration + '\'' +
                 ", engines='" + engines + '\'' +
+                ", modes='" + modes + '\'' +
+                ", adsb='" + adsb + '\'' +
+                ", acars='" + acars + '\'' +
+                ", notes='" + notes + '\'' +
                 ", categoryDescription='" + categoryDescription + '\'' +
                 '}';
     }

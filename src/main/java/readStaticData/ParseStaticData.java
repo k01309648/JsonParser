@@ -5,11 +5,7 @@ import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdfconnection.RDFConnection;
 
-import airplane.ACDataBaseLine;
 import airplane.Aircraft;
-import airplane.AircraftType;
-import airplane.Manufacturer;
-import airplane.Operator;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
@@ -26,24 +22,15 @@ public class ParseStaticData implements PropertyManager {
 		
 	}
 
-	private static ArrayList<ACDataBaseLine> dataBase; //Aircraft
-    private static ArrayList<Operator> operators;
-    private static ArrayList<Manufacturer> manufacturers;
-    private static ArrayList<AircraftType> aircraftTypes;
-    private static ArrayList<Aircraft> aircrafts;
-    
-    public static ArrayList<ACDataBaseLine> readStaticData() throws IOException {
+	private static ArrayList<Aircraft> dataBase; //Aircraft
+
+    public static ArrayList<Aircraft> readStaticData() throws IOException {
         
     	dataBase = new ArrayList<>();
-        operators = new ArrayList<>();
-        manufacturers = new ArrayList<>();
-        aircraftTypes = new ArrayList<>();
-        aircrafts = new ArrayList<>();
 
         try {
         	
-            String path = "C:\\Users\\georg\\Documents\\GitHub\\JsonParser 5.0\\DKE_Proj\\test2.csv";
-            String path2 = "";
+            String path = "test2.csv";
             
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line;
@@ -58,38 +45,17 @@ public class ParseStaticData implements PropertyManager {
                         createDataBase(dataLine);
                         i++;
 
-
-                        addAircraft(dataLine[0], dataLine[1], dataLine[4], dataLine[6], dataLine[7], dataLine[13], dataLine[14],   // Add new Manufacturer only if not already in List
-                        dataLine[15], dataLine[16], dataLine[18], dataLine[19], dataLine[21], dataLine[26]);
-                        addNewManufacturer(dataLine[2], dataLine[3]);                                                             // Add new Manufacturer only if not already in List
-                        addNewOperator(dataLine[9], dataLine[10], dataLine[11], dataLine[12]);                                    // Add new Operator only if not already in List
-                        addNewAircraftType(dataLine[5], dataLine[8]);
                     }
                 }
             }
             parseToRDF(dataBase);
 
-            /* ------------------------------TEST-PRINT --------------------------*/
-//            for (Manufacturer m : manufacturers){
-//                System.out.println(m);
-//            }
-//
-//            for (AircraftType at : aircraftTypes){
-//                System.out.println(at);
-//            }
-//            for (Operator o : operators){
-//                System.out.println(o);
-//            }
-            for(ACDataBaseLine a : dataBase){
+
+            for(Aircraft a : dataBase){
                 System.out.println(a);
             }
 
             System.out.println("dataBase: " + dataBase.size());
-            System.out.println("Aircrafts: " + aircrafts.size());
-            System.out.println("Manufacturers: " + manufacturers.size());
-            System.out.println("Operators: " + operators.size());
-            System.out.println("Types: " + aircraftTypes.size());
-            System.out.println("------------------------------------- ");
 
         } catch(FileNotFoundException e){
             e.printStackTrace();
@@ -105,10 +71,6 @@ public class ParseStaticData implements PropertyManager {
         return (reg.contains("OE-") || reg.contains("HB-") || reg.contains("D-"));
     }
 
-    public static boolean selectNotEmpty(String s) {
-        return (s != null && !s.isEmpty());
-    }
-
     private static void removeQuotationMarks(String[] dataLine) {
         for(int i = 0; i < dataLine.length; i++){
             if(dataLine[i].length() > 2) {
@@ -121,7 +83,7 @@ public class ParseStaticData implements PropertyManager {
 
     private static void createDataBase(String[] dataLine) {
 
-        ACDataBaseLine acDataBaseLine = new ACDataBaseLine();
+        Aircraft acDataBaseLine = new Aircraft();
         acDataBaseLine.setIcao24(dataLine[0]);
         acDataBaseLine.setRegistration(dataLine[1]);
         acDataBaseLine.setManufacturerIcao(dataLine[2]);
@@ -152,67 +114,10 @@ public class ParseStaticData implements PropertyManager {
         dataBase.add(acDataBaseLine);
     }
 
-    private static void addAircraft(String icao24, String registration, String model, String serialNo, String lineNo,
-                                    String owner, String testReg, String registered, String regUntil, String built,
-                                    String firstFlight, String engines, String catDescr) {
-        if(icao24 != null && !icao24.isEmpty()){
-            aircrafts.add(new Aircraft(icao24, registration, model, serialNo, lineNo, owner, testReg, registered, regUntil, built, firstFlight, engines, catDescr));
-        }
-    }
 
-    private static void addNewOperator(String name, String callSign, String icao, String iata) {
-        if (selectNotEmpty(name) || selectNotEmpty(callSign) || selectNotEmpty(icao) || selectNotEmpty(iata)) {
-
-            Operator op = new Operator(name, callSign, icao, iata);
-            boolean contains = false;
-
-            for(Operator o : operators){
-                if(o.equals(op)){
-                    contains = true;
-                    break;
-                }
-            }
-            if(!contains){
-                operators.add(op);
-            }
-        }
-    }
-
-    private static void addNewManufacturer(String icao, String name) {
-        if (selectNotEmpty(icao) || selectNotEmpty(name)) {
-            Manufacturer m = new Manufacturer(icao, name);
-            boolean contains = false;
-            for(Manufacturer man : manufacturers){
-                if(m.equals(man)){
-                    contains = true;
-                    break;
-                }
-            }
-            if(!contains){
-                manufacturers.add(m);
-            }
-        }
-    }
-
-    private static void addNewAircraftType(String typeCode, String icaoAcType) {
-        if(selectNotEmpty(typeCode) || selectNotEmpty(icaoAcType)){
-            AircraftType type = new AircraftType(typeCode, icaoAcType);
-            boolean contains = false;
-            for(AircraftType a : aircraftTypes){
-                if(a.equals(type)){
-                    contains = true;
-                    break;
-                }
-            }
-            if(!contains){
-                aircraftTypes.add(type);
-            }
-        }
-    }
-
-    public static void parseToRDF(ArrayList<ACDataBaseLine> dataBase) {
+    public static void parseToRDF(ArrayList<Aircraft> dataBase) {
     	
-        for(ACDataBaseLine ac : dataBase){
+        for(Aircraft ac : dataBase){
             // Aircraft-Properties
             m.createResource(ns + ac.getIcao24())
                     .addProperty(registrationProperty, ac.getRegistration()).addProperty(modelProperty, ac.getModel())
@@ -254,11 +159,8 @@ public class ParseStaticData implements PropertyManager {
 
         boolean valid = report.conforms();
         RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
-        if (valid) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return valid;
     }
 }
 

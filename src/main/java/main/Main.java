@@ -2,7 +2,7 @@ package main;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import airplane.ACDataBaseLine;
+import airplane.Aircraft;
 import jsonReader.*;
 import readStaticData.*;
 
@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		
-		ArrayList<ACDataBaseLine> db = null;
+		ArrayList<Aircraft> db = null;
 		System.out.println("Type 1 for Static / 2 For Dynamic Data");
 		int mode = System.in.read();
 		if(mode =='1') {
@@ -27,7 +27,7 @@ public class Main {
 			System.out.println("ERROR!");
 		}
 		
-		
+
 	
 		
 		
