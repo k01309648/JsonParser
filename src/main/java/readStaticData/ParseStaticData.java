@@ -116,7 +116,11 @@ public class ParseStaticData implements PropertyManager {
 
 
     public static void parseToRDF(ArrayList<Aircraft> dataBase) {
-    	
+        m.setNsPrefix("aircraft", "http://www.example.org/aircraft#");
+        m.setNsPrefix("manufacturer", "http://www.example.org/aircraft/manufacturer#");
+        m.setNsPrefix("type", "http://www.example.org/aircraft/type#");
+        m.setNsPrefix("operator", "http://www.example.org/aircraft/operator#");
+
         for(Aircraft ac : dataBase){
             // Aircraft-Properties
             m.createResource(ns + ac.getIcao24())
@@ -145,7 +149,7 @@ public class ParseStaticData implements PropertyManager {
             m.write(System.out, "TURTLE");
         }
         try (RDFConnection conn = RDFConnection.connect("http://localhost:3030/Test") ) {
-            conn.load(m);
+            conn.load("http://static", m);
         }
 
         validateAircraft(m);

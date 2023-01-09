@@ -46,7 +46,7 @@ public class ReadFromJson implements PropertyManager {
 		Pair result = parseJSON(
 				"https://opensky-network.org/api/states/all?lamin=46.39025&lomin=15.0208&lamax=49.014&lomax=17.1483");
 
-		Pair result2 = parseJSON("file:///E:\\JKU\\Sem. 7\\PR DKE\\JsonParser 4.0\\DKE_Proj\\jsonfiles/TestFile.json");
+		//Pair result2 = parseJSON("");
 
 		ArrayList<States> states;
 
@@ -117,11 +117,13 @@ public class ReadFromJson implements PropertyManager {
 
 		}
 
+		m.setNsPrefix("states", "http://www.example.org/statesOf#");
+
 		// Man muss ein DataSet im Fuseki Server erstellen, meines ist "Test". Weiters
 		// muss der Fuseki-Server laufen.
 		try (RDFConnection conn = RDFConnection.connect("http://localhost:3030/Test")) {
-			conn.load(m);
-
+			conn.load("http://dynamic#"+time, m);
+//			conn.load(m);
 		}
 
 		m.write(System.out, "TURTLE");

@@ -21,7 +21,6 @@ public class Main {
 		}
 		else if(mode == '2') {
 			ReadFromJson.transformToRDF();
-				ReadFromJson.transformToRDF();
 		}
 		else {
 			System.out.println("ERROR!");
